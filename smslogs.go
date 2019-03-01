@@ -1,4 +1,4 @@
-package log
+package smslog
 
 import (
 	"encoding/json"
@@ -8,27 +8,29 @@ import (
 
 //LogInfo for ..
 type LogInfo struct {
-	Timestamp       string   `json:"@timestamp"`
-	Tags            []string `json:"tags"`
-	OrderNo         string   `json:"orderno"`
-	TrackingNo      string   `json:"trackingno"`
-	ApplicationName string   `json:"applicationname"`
-	FunctionName    string   `json:"functionname"`
-	OrderDate       string   `json:"orderdate"`
-	TVSNo           string   `json:"tvsno"`
-	MobileNo        string   `json:"mobileno"`
-	SerialNo        string   `json:"serialno"`
-	Reference1      string   `json:"reference1"`
-	Reference2      string   `json:"reference2"`
-	Reference3      string   `json:"reference3"`
-	Reference4      string   `json:"reference4"`
-	Reference5      string   `json:"reference5"`
-	Request         string   `json:"request"`
-	Response        string   `json:"response"`
-	Start           string   `json:"start"`
-	End             string   `json:"end"`
-	Duration        string   `json:"duration"`
-	Level           string   `json:"level"`
+	Timestamp string   `json:"@timestamp"`
+	Tags      []string `json:"tags"`
+	OrderNo   string   `json:"orderno"`
+	//TrackingNo      string   `json:"trackingno"`
+	CorrelationID   string `json:"correlationid"`
+	ApplicationName string `json:"applicationname"`
+	FunctionName    string `json:"functionname"`
+	OrderDate       string `json:"orderdate"`
+	OrderType       string `json:"ordertype"`
+	TVSNo           string `json:"tvsno"`
+	MobileNo        string `json:"mobileno"`
+	SerialNo        string `json:"serialno"`
+	Reference1      string `json:"reference1"`
+	Reference2      string `json:"reference2"`
+	Reference3      string `json:"reference3"`
+	Reference4      string `json:"reference4"`
+	Reference5      string `json:"reference5"`
+	Request         string `json:"request"`
+	Response        string `json:"response"`
+	Start           string `json:"start"`
+	End             string `json:"end"`
+	Duration        string `json:"duration"`
+	Level           string `json:"level"`
 }
 
 var debugLevel int
@@ -46,11 +48,12 @@ const (
 )
 
 // New for create logInfo
-func New(l Level) *LogInfo {
+func New(appName string, funcName string, level Level) *LogInfo {
 	//debugLevel := l
 	//fmt.Printf("debug level = %d\n", debugLevel)
+	log := &LogInfo{Timestamp: time.Now().Format(time.RFC3339Nano), Level: getName(level), ApplicationName: appName, FunctionName: funcName}
 
-	return &LogInfo{Timestamp: time.Now().Format(time.RFC3339Nano), Level: getName(l)}
+	return log
 }
 
 // PrintLog for send log to stdoutput
