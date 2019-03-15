@@ -30,7 +30,7 @@ type LogInfo struct {
 	Start           string `json:"start"`
 	End             string `json:"end"`
 	Duration        string `json:"duration"`
-	Level           string `json:"level"`
+	Suffix          string `json:"@suffix"`
 }
 
 var debugLevel int
@@ -48,16 +48,23 @@ const (
 )
 
 // New for create logInfo
-func New(appName string, funcName string, level Level) *LogInfo {
+func New(appName string) *LogInfo {
 	//debugLevel := l
 	//fmt.Printf("debug level = %d\n", debugLevel)
-	log := &LogInfo{Timestamp: time.Now().Format(time.RFC3339Nano), Level: getName(level), ApplicationName: appName, FunctionName: funcName}
+	log := &LogInfo{Timestamp: time.Now().Format(time.RFC3339Nano), Suffix: getName(INFO), ApplicationName: appName}
 
 	return log
 }
 
 // PrintLog for send log to stdoutput
-func (l *LogInfo) PrintLog() {
+func (l *LogInfo) PrintLog(level Level, funcName string, correlationID string, req string, res string) {
+	l.Timestamp = time.Now().Format(time.RFC3339Nano)
+	l.Suffix = getName(level)
+	l.FunctionName = funcName
+	l.CorrelationID = correlationID
+	l.Request = req
+	l.Response = res
+
 	jsonStr, _ := json.Marshal(l)
 	fmt.Printf("%s\n", string(jsonStr))
 }
