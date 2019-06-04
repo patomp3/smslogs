@@ -56,6 +56,11 @@ func New(appName string) *LogInfo {
 	return log
 }
 
+// Close dbinfo
+func (l *LogInfo) Close() {
+	l = nil
+}
+
 // PrintLog for send log to stdoutput
 func (l *LogInfo) PrintLog(level Level, funcName string, correlationID string, req string, res string) {
 	l.Timestamp = time.Now().Format(time.RFC3339Nano)
