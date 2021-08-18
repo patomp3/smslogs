@@ -113,7 +113,7 @@ func (l *LogInfoE2E) CloseE2E() {
 }
 
 // PrintLogE2E for send log to stdoutput
-func (l *LogInfo) PrintLogE2E(req string, res string) {
+func (l *LogInfoE2E) PrintLogE2E(req string, res string) {
 	if l.Timestamp == "" {
 		l.Timestamp = time.Now().Format(time.RFC3339Nano)
 	}
@@ -139,24 +139,24 @@ func (l *LogInfo) PrintLogE2E(req string, res string) {
 	fmt.Printf("%s\n", string(jsonStr))
 }*/
 
-/*func main() {
+// func main() {
 
-	log := New(INFO)
-	log.PrintLog()
+// 	log := NewE2E("1111", "sufix", "prefix")
+// 	log.PrintLogE2E("", "")
 
-	log.TVSNo = "6666666"
-	log.PrintLog()
+// 	// log.TVSNo = "6666666"
+// 	// log.PrintLog()
 
-	tag := []string{
-		"John",
-		"Paul",
-		"George",
-		"Ringo",
-	}
-	log.Tags = tag
-	log.PrintLog()
-	//displayLog(ALL, "Hello")
-}*/
+// 	// tag := []string{
+// 	// 	"John",
+// 	// 	"Paul",
+// 	// 	"George",
+// 	// 	"Ringo",
+// 	// }
+// 	// log.Tags = tag
+// 	// log.PrintLog()
+// 	//displayLog(ALL, "Hello")
+// }
 
 func getName(level Level) string {
 	var myReturn string
