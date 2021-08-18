@@ -120,6 +120,7 @@ func (l *LogInfoE2E) PrintLogE2E(req string, res string) {
 	l.Request = req
 	l.Response = res
 
+	// write log
 	jsonStr, _ := json.Marshal(l)
 	fmt.Printf("%s\n", string(jsonStr))
 }
