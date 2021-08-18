@@ -114,7 +114,9 @@ func (l *LogInfoE2E) CloseE2E() {
 
 // PrintLogE2E for send log to stdoutput
 func (l *LogInfo) PrintLogE2E(req string, res string) {
-	l.Timestamp = time.Now().Format(time.RFC3339Nano)
+	if l.Timestamp == "" {
+		l.Timestamp = time.Now().Format(time.RFC3339Nano)
+	}
 	l.Request = req
 	l.Response = res
 
