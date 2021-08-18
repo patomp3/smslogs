@@ -13,21 +13,21 @@ type LogInfoE2E struct {
 	Timestamp string `json:"@timestamp"`
 
 	Level           string  `json:"level"`
-	LogCat          string  `json:"log_cate"`
+	LogCat          string  `json:"log_cat"`
 	TxId            string  `json:"tx_id"`
-	StepTxId        string  `json:"step_txid"`
+	StepTxId        string  `json:"step_txid,omitempty"`
 	StepName        string  `json:"step_name"`
-	EndpointName    string  `json:"endpoint_name"`
-	Endpoint        string  `json:"endpoint"`
+	EndpointName    string  `json:"endpoint_name,omitempty"`
+	Endpoint        string  `json:"endpoint,omitempty"`
 	ResultCode      string  `json:"result_code"`
 	ResultDesc      string  `json:"result_desc"`
 	StartDate       string  `json:"start_date"`
 	EndDate         string  `json:"end_date"`
-	ElapsedTime     float64 `json:"elapsed_time"`
+	ElapsedTime     float32 `json:"elapsed_time"`
 	ResultIndicator string  `json:"result_indicator"`
 
-	Request  string `json:"request"`
-	Response string `json:"response"`
+	Request  string `json:"request,omitempty"`
+	Response string `json:"response,omitempty"`
 }
 
 // NewE2E for create LogInfoE2E
@@ -45,12 +45,10 @@ func (l *LogInfoE2E) CloseE2E() {
 }
 
 // PrintLogE2E for send log to stdoutput
-func (l *LogInfoE2E) PrintLogE2E(req string, res string) {
+func (l *LogInfoE2E) PrintLogE2E() {
 	if l.Timestamp == "" {
 		l.Timestamp = time.Now().Format(time.RFC3339Nano)
 	}
-	l.Request = req
-	l.Response = res
 
 	// write log E2E
 	jsonStr, _ := json.Marshal(l)
