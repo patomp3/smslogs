@@ -14,7 +14,7 @@ type LogInfoE2E struct {
 
 	Level           string  `json:"level"`
 	LogCat          string  `json:"log_cat"`
-	TxId            string  `json:"tx_id"`
+	TxId            string  `json:"txid"`
 	StepTxId        string  `json:"step_txid,omitempty"`
 	StepName        string  `json:"step_name"`
 	EndpointName    string  `json:"endpoint_name,omitempty"`
